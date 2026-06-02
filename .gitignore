@@ -19,7 +19,9 @@ env.bak/
 venv.bak/
 
 # Project specific
-data/
+data/*
+!data/processed/
+!data/processed/cleaned_superstore.csv
 models/
 reports/*.pdf
 reports/*.html
