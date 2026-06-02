@@ -129,3 +129,12 @@ Launch the interactive web-based dashboard:
 streamlit run src/app.py
 ```
 This command will open the interactive dashboard in your default web browser (typically at `http://localhost:8501`).
+
+---
+
+## 👤 Author Information
+- **Name:** Rudra Patel
+- **Internship ID:** `SYN/J2/IP806`
+- **Email:** `rudrapatel2156@gmail.com`
+- **LinkedIn Profile:** [Rudra Patel](https://www.linkedin.com/in/rudrapatel-cs)
+- **GitHub Profile:** [Rudra2986](https://www.github.com/Rudra2986)
