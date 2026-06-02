@@ -23,7 +23,10 @@ st.set_page_config(
 # 2. Load cleaned data helper
 @st.cache_data
 def load_data():
-    file_path = os.path.join("data", "processed", "cleaned_superstore.csv")
+    # Robust path resolution relative to script file (src/app.py -> project root)
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_path = os.path.join(base_dir, "data", "processed", "cleaned_superstore.csv")
+    
     if not os.path.exists(file_path):
         # Fallback to absolute workspace path if needed
         file_path = "c:/COLLEGE/Synent-Internship-2026/Task-5-Sales-Analysis/data/processed/cleaned_superstore.csv"
