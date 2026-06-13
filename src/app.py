@@ -49,11 +49,59 @@ def main():
         st.error("Error: Cleaned dataset not found. Please execute the data cleaning pipeline first by running: `python src/data_cleaning.py`")
         return
 
+    # Custom CSS injection for premium Metric Cards and Layout
+    st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        /* General fonts */
+        html, body, [class*="css"] {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Metric cards */
+        div[data-testid="stMetric"] {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 1px solid #E2E8F0;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        div[data-testid="stMetric"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #3B82F6;
+        }
+        div[data-testid="stMetricLabel"] p {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+            letter-spacing: 0.3px;
+        }
+        div[data-testid="stMetricValue"] > div {
+            font-size: 26px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+        }
+        /* Custom tab styles */
+        button[data-baseweb="tab"] {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            color: #475569 !important;
+        }
+        button[data-baseweb="tab"][aria-selected="true"] {
+            color: #1E3A8A !important;
+            border-bottom-color: #1E3A8A !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     # Header section
     st.markdown("""
-        <div style="background-color:#1E3A8A;padding:20px;border-radius:10px;margin-bottom:20px">
-            <h1 style="color:white;text-align:center;margin:0">Superstore Sales Performance Dashboard</h1>
-            <p style="color:#D1D5DB;text-align:center;margin:5px 0 0 0;font-size:16px">Synent Technologies Data Science Internship - Task 5</p>
+        <div style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); padding: 25px 20px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+            <h1 style="color: white; text-align: center; margin: 0; font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.5px; font-size: 32px;">Superstore Sales Performance Dashboard</h1>
+            <p style="color: #E2E8F0; text-align: center; margin: 8px 0 0 0; font-size: 16px; font-family: 'Inter', sans-serif; opacity: 0.9; font-weight: 500;">Synent Technologies Data Science Internship - Task 5</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -130,6 +178,14 @@ def main():
             markers=True,
             color_discrete_sequence=['#1E3A8A']
         )
+        fig_revenue.update_layout(
+            template="plotly_white",
+            hovermode="x unified",
+            margin=dict(l=20, r=20, t=50, b=20),
+            title_font=dict(size=18, family="Inter", color="#0F172A"),
+            xaxis=dict(showgrid=True, gridcolor='#F1F5F9'),
+            yaxis=dict(showgrid=True, gridcolor='#F1F5F9')
+        )
         st.plotly_chart(fig_revenue, use_container_width=True)
         
         st.markdown("""
@@ -153,6 +209,13 @@ def main():
             color='Profit',
             color_continuous_scale=px.colors.diverging.RdYlGn,
             labels={"Margin (%)": "Profit Margin (%)"}
+        )
+        fig_margin.update_layout(
+            template="plotly_white",
+            margin=dict(l=20, r=20, t=50, b=20),
+            title_font=dict(size=18, family="Inter", color="#0F172A"),
+            xaxis=dict(showgrid=True, gridcolor='#F1F5F9'),
+            yaxis=dict(showgrid=False)
         )
         st.plotly_chart(fig_margin, use_container_width=True)
         
@@ -180,7 +243,13 @@ def main():
             labels={"Sales": "Total Sales ($)"}
         )
         # Invert y-axis to show top product on top
-        fig_products.update_layout(yaxis={'categoryorder': 'total ascending'})
+        fig_products.update_layout(
+            template="plotly_white",
+            margin=dict(l=20, r=20, t=50, b=20),
+            title_font=dict(size=18, family="Inter", color="#0F172A"),
+            yaxis={'categoryorder': 'total ascending'},
+            xaxis=dict(showgrid=True, gridcolor='#F1F5F9')
+        )
         st.plotly_chart(fig_products, use_container_width=True)
 
     # TAB 4: Regional Performance
@@ -198,6 +267,13 @@ def main():
             title="Top 15 States by Sales Revenue and Net Profit",
             color_continuous_scale=px.colors.sequential.Plotly3,
             labels={"Sales": "Total Sales ($)"}
+        )
+        fig_states.update_layout(
+            template="plotly_white",
+            margin=dict(l=20, r=20, t=50, b=20),
+            title_font=dict(size=18, family="Inter", color="#0F172A"),
+            xaxis=dict(showgrid=False),
+            yaxis=dict(showgrid=True, gridcolor='#F1F5F9')
         )
         st.plotly_chart(fig_states, use_container_width=True)
         
